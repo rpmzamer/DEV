@@ -14,3 +14,4 @@ console.log(__filename);
 
 //join
 console.log(path.join(__dirname,"Text.js"));
+
