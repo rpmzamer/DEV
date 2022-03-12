@@ -1,0 +1,2 @@
+The file is overwritten if the file already exists. 
+Newly added content
