@@ -5,14 +5,25 @@
 let fs=require("fs");
 let path=require("path");
 let content=fs.readdirSync("Unorganised");
+let extensions={
+    Image:[".jpg"],
+    Audio:[".mp3"],
+    Video:[".mp4"],
+    Doc:[".doc",".pdf"],
+    Others:[".zip",".xlsx"]
+}
 for(let i=0;i<content.length;i++)
 {
-    let extn=path.extname(content[i]));
-    switch(extn)
+for(let key in extensions)
+{
+    let arr=extensions[key];
+    for(let j=0;j<arr.length;j++)
     {
-        case '.jpg' :console.log("Image File");
-        break;
-        case'.mp3':console.log("Audio File")
-
+        if(path.extname(content[i])==arr[j])
+        {
+            console.log(content[i]+" --> "+key);
+        }
     }
+    
+}
 }
