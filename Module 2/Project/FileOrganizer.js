@@ -55,4 +55,3 @@ function moveFile(sourceFolderPath,destFolderPath,fileName)
     fs.copyFileSync(sourcePath,destPath);
     fs.unlinkSync(sourcePath);
 }
-
