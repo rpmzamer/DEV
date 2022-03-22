@@ -24,4 +24,3 @@ function updateUsers(users, userObject, item)
     }
     return users;
 }
-
