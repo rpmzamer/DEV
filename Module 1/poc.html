@@ -12,10 +12,38 @@
         padding: 12px;    
         margin: 12px;     
     }
+    .px{
+        font-size: 16px; /*since default font size of html is 16px in most of the browser therefore nothing changes*/
+    }
+    .rem{
+        font-size: 2rem;
+    }
+    h1{
+        font-size: 1em; /*will become the multiple font size of its parent i.e here 16px*/
+    }   
+    .vh-vw{
+        height: 40vh; /*percentage of total viewport heigth*/
+        width: 40vw; /*similarly for width*/
+        background-color: black;
+    }    
+    .child{
+        height: 50%; /*with respect to its parent*/
+        width: 40%;
+        background-color: red;
+    }       
 </style>
 <body>
     <input type="text">
     <br>
     <button>Button</button>
+    <div class="px">Px</div>
+    <div class="rem">Rem</div>
+    <div>
+        <h1>I am Heading 1</h1>
+    </div>
+    <div class="vh-vw">
+        <div class="child">
+        </div>
+    </div>
 </body>
 </html>
