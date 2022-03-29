@@ -33,8 +33,8 @@ function cb(error,response,html)
                 }    
             }
         }
-        console.log(nameOfHighestWicketTaker);
-        console.log(highestWicket);
+        console.log("Name of Highest Wicket Taker is :"+nameOfHighestWicketTaker);
+        console.log("Highest Wicket Taken: "+highestWicket);
     }
 
 }
