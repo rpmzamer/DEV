@@ -53,7 +53,7 @@ function processPlayer(name,runs,balls,fours,sixes){
             playerObj.Balls+=balls;
             playerObj.Fours+=fours;
             playerObj.Sixes+=sixes;
-            return;
+            return
         }
     }
 }    
