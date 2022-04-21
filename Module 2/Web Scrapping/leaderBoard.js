@@ -2,7 +2,7 @@ const request = require("request");
 const jsdom=require("jsdom");
 const {JSDOM}=jsdom;
 const link="https://www.espncricinfo.com/series/ipl-2021-1249214/match-results";
-let leaderboard=[]
+let leaderboard=[]      //Array of objects
 request(link,cb);
 function cb(error,response,html)
 {
@@ -11,7 +11,7 @@ function cb(error,response,html)
     else
     {
         const dom=new JSDOM(html);
-        let allScoreCards=dom.window.document.querySelectorAll("a[data-hover='Scorecard']");
+        let allScoreCards=dom.window.document.querySelectorAll(".ds-border-b.ds-border-line");
         for(i=0;i<allScoreCards.length;i++)
         {
             let links=allScoreCards[i].href;
@@ -53,7 +53,20 @@ function processPlayer(name,runs,balls,fours,sixes){
             playerObj.Balls+=balls;
             playerObj.Fours+=fours;
             playerObj.Sixes+=sixes;
-            return
+            return;
         }
+    }
+
+    // code coming here means we did not find our player inside leaderboard
+
+    let obj = {
+        Name : name,
+        Innings: 1,
+        Runs: runs,
+        Balls: balls,
+        Fours: fours,
+        Sixes: sixes
+    }
+      leaderboard.push(obj);
     }
 }    
