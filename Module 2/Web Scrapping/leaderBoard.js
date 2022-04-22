@@ -11,11 +11,12 @@ function cb(error,response,html)
     else
     {
         const dom=new JSDOM(html);
-        let allScoreCards=dom.window.document.querySelectorAll(".ds-border-b.ds-border-line");
-        for(i=0;i<allScoreCards.length;i++)
+        let allScoreCardsTags=dom.window.document.querySelectorAll(".ds-border-b.ds-border-line");
+        for(i=0;i<60;i++)
         {
-            let links=allScoreCards[i].href;
-            let completeLink="https://www.espncricinfo.com"+links;
+            let anchorTagAll = allScoreCardsTags[i].querySelectorAll("a");
+            let link = anchorTagAll[2].href;
+            let completeLink="https://www.espncricinfo.com"+link;
             request(completeLink,cb2);
         }
     }
@@ -35,18 +36,21 @@ function cb2(error,response,html)
         let fours = batsManColumn[5].textContent;
         let sixes = batsManColumn[6].textContent;
         console.log("Name : ",name,"Runs : ",runs,"Balls : ",balls,"Fours : ",fours,"Sixes : ",sixes); 
-        processPlayer(name,runs,balls,fours,sixes);
+        // processPlayer(name,runs,balls,fours,sixes);
         }
     }
 } 
-function processPlayer(name,runs,balls,fours,sixes){
+function processPlayer(name,runs,balls,fours,sixes)
+{
     runs = Number(runs);
     balls = Number(balls);
     fours = Number(fours);
     sixes = Number(sixes);
-    for(let i=0;i<leaderboard.length;i++){
+    for(let i=0;i<leaderboard.length;i++)
+    {
         let playerObj = leaderboard[i];
-        if(playerObj.Name == name){
+        if(playerObj.Name == name)
+        {
             //will do some work here
             playerObj.Runs+=runs;
             playerObj.Innings+=1;
@@ -68,5 +72,4 @@ function processPlayer(name,runs,balls,fours,sixes){
         Sixes: sixes
     }
       leaderboard.push(obj);
-    }
 }    
