@@ -24,7 +24,7 @@ function cb(error,response,html)
 function cb2(error,response,html)
 {
     const dom=new JSDOM(html);
-    batsmanRow=dom.window.document.querySelectorAll(".table.batsman tbody tr");
+    batsmanRow=dom.window.document.querySelectorAll('tbody [class="ds-border-b ds-border-line ds-text-tight-s"]');
     for(let i=0;i<batsmanRow.length;i++)
     {
         let batsManColumn=batsmanRow[i].querySelectorAll("td");
