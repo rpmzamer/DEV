@@ -1,5 +1,6 @@
 const request = require("request");
 const jsdom=require("jsdom");
+const fs = require("fs")
 const {JSDOM}=jsdom;
 const link="https://www.espncricinfo.com/series/ipl-2021-1249214/match-results";
 let leaderboard=[]      //Array of objects
@@ -49,7 +50,8 @@ function cb2(error,response,html)
     counter--;
     if(counter==0)
     console.log(leaderboard);
-        
+    let data = JSON.stringify(leaderboard);
+    fs.writeFileSync('batsmanStats.json',data);    
 } 
 function processPlayer(name,runs,balls,fours,sixes)
 {
