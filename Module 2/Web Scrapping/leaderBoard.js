@@ -3,6 +3,7 @@ const jsdom=require("jsdom");
 const {JSDOM}=jsdom;
 const link="https://www.espncricinfo.com/series/ipl-2021-1249214/match-results";
 let leaderboard=[]      //Array of objects
+let counter = 0;
 request(link,cb);
 function cb(error,response,html)
 {
@@ -18,27 +19,37 @@ function cb(error,response,html)
             let link = anchorTagAll[2].href;
             let completeLink="https://www.espncricinfo.com"+link;
             request(completeLink,cb2);
+            counter++;
         }
     }
 }       
 function cb2(error,response,html)
 {
-    const dom=new JSDOM(html);
-    batsmanRow=dom.window.document.querySelectorAll('tbody [class="ds-border-b ds-border-line ds-text-tight-s"]');
-    for(let i=0;i<batsmanRow.length;i++)
+    if(error)
+    console.log("Error Found!: ",error);
+    else
     {
-        let batsManColumn=batsmanRow[i].querySelectorAll("td");
-        if(batsManColumn.length==8)
+        const dom=new JSDOM(html);
+        batsmanRow=dom.window.document.querySelectorAll('tbody [class="ds-border-b ds-border-line ds-text-tight-s"]');
+        for(let i=0;i<batsmanRow.length;i++)
         {
-        let name = batsManColumn[0].textContent;
-        let runs = batsManColumn[2].textContent;
-        let balls = batsManColumn[3].textContent;
-        let fours = batsManColumn[5].textContent;
-        let sixes = batsManColumn[6].textContent;
-        console.log("Name : ",name,"Runs : ",runs,"Balls : ",balls,"Fours : ",fours,"Sixes : ",sixes); 
-        // processPlayer(name,runs,balls,fours,sixes);
-        }
+            let batsManColumn=batsmanRow[i].querySelectorAll("td");
+            if(batsManColumn.length==8)
+            {
+            let name = batsManColumn[0].textContent;
+            let runs = batsManColumn[2].textContent;
+            let balls = batsManColumn[3].textContent;
+            let fours = batsManColumn[5].textContent;
+            let sixes = batsManColumn[6].textContent;
+            // console.log("Name : ",name,"Runs : ",runs,"Balls : ",balls,"Fours : ",fours,"Sixes : ",sixes); 
+            processPlayer(name,runs,balls,fours,sixes);
+            }
+        }    
     }
+    counter--;
+    if(counter==0)
+    console.log(leaderboard);
+        
 } 
 function processPlayer(name,runs,balls,fours,sixes)
 {
@@ -72,4 +83,4 @@ function processPlayer(name,runs,balls,fours,sixes)
         Sixes: sixes
     }
       leaderboard.push(obj);
-}    
+}
