@@ -14,7 +14,7 @@ function cb(error,response,html)
     {
         const dom=new JSDOM(html);
         let allScoreCardsTags=dom.window.document.querySelectorAll(".ds-border-b.ds-border-line");
-        for(i=0;i<60;i++)
+        for(i=0;i<1;i++)
         {
             let anchorTagAll = allScoreCardsTags[i].querySelectorAll("a");
             let link = anchorTagAll[2].href;
