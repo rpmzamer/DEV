@@ -67,10 +67,10 @@ function cb3(error,response,html)
     {
         const dom = new JSDOM(html);
         const document = dom.window.document;
-        let allIssuesTags = document.querySelectorAll(".d-block.d-md-none.position-absolute.top-0.bottom-0.left-0.right-0");
+        let allIssuesTags = document.querySelectorAll(".Link--primary.v-align-middle.no-underline.h4.js-navigation-open.markdown-title");
         for(let i=0;i<1;i++)
         {
-            console.log(allIssuesTags[i].textContent); //to be resolved
+            console.log(allIssuesTags[i].textContent);
             console.log("https://github.com"+allIssuesTags[i].href);
         }      
     }
