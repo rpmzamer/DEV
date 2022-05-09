@@ -5,7 +5,6 @@ const path = require("path");
 const { JSDOM } = jsdom;
 let issues=[];
 const link = "https://github.com/topics";
-let counter = 0 ;
 let topicpath = [];
 let repoFolderPath = [];
 let j=0;
@@ -73,7 +72,7 @@ function cb2(error,response,html)
              }
             //  console.log(completeRepoIssueLink);   
              request(completeRepoIssueLink,cb3); 
-             counter++;      
+                 
         }
         j++;
     }
@@ -87,13 +86,15 @@ function cb3(error,response,html)
     }
     else
     {
+        // let counter = 0 ;
+        let i=0;
         const dom = new JSDOM(html);
         const document = dom.window.document;
         let allIssuesTags = document.querySelectorAll(".Link--primary.v-align-middle.no-underline.h4.js-navigation-open.markdown-title");
         let term = 8;
         if(allIssuesTags.length<8)
         term=allIssuesTags.length;
-        for(let i=0;i<term;i++)
+        for(i=0;i<term;i++)
         {
             // console.log(allIssuesTags[i].textContent);
             let issName = allIssuesTags[i].textContent;
@@ -102,17 +103,22 @@ function cb3(error,response,html)
         }  
         // let data = JSON.stringify(issues);
         // fs.writeFileSync(path.join(repoFolderPath[k],issues.json),data);
-        issues=[];
-        counter--;
-        if(counter==0)
+        // counter--;
+        if(i==term)
         {
-            console.log(repoFolderPath.length);
-            console.log(repoFolderPath);
+            // console.log(repoFolderPath.length);
+            // console.log(repoFolderPath);
             // console.log(issues);
-            // let data = JSON.stringify(issues);                                       // because writeFileSync reads only string so for converting object to string we use JSON
-            // fs.writeFileSync(path.join(repoFolderPath[k],Issues.json),data);
+            let data = JSON.stringify(issues);                                       // because writeFileSync reads only string so for converting object to string we use JSON
+            let pathJson = path.join(repoFolderPath[k],"Issues.json"); 
+            // console.log(pathJson);
+            fs.writeFileSync(pathJson,data);
         }
+        // console.log("k: "+k+" len: "+repoFolderPath.length);
+        // counter++;  
         k++;
+        issues=[];
+
     }
 }
 
