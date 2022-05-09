@@ -65,12 +65,13 @@ function cb2(error,response,html)
             // console.log(completeRepoIssueLink);
             // console.log(topicpath[j]+"\\" + singleRepoNameCrop);
                                                                                      //path.join(repoFolderPath),singleRepoName)
-             if(!fs.existsSync(topicpath[j]+"\\" + singleRepoNameCrop))
+             let topicRepoPath= topicpath[j]+"\\" + singleRepoNameCrop;                                                                       
+             if(!fs.existsSync(topicRepoPath))
              {
-                fs.mkdirSync(topicpath[j]+"\\" + singleRepoNameCrop);
-                repoFolderPath.push(topicpath[j]+"\\" + singleRepoNameCrop);
+                fs.mkdirSync(topicRepoPath);
+                repoFolderPath.push(topicRepoPath);
              }
-            //  console.log(completeRepoIssueLink);
+            //  console.log(completeRepoIssueLink);   
              request(completeRepoIssueLink,cb3); 
              counter++;      
         }
@@ -100,16 +101,17 @@ function cb3(error,response,html)
             issuesProcess(issName,isslink);
         }  
         // let data = JSON.stringify(issues);
-        console.log(repoFolderPath.length);
         // fs.writeFileSync(path.join(repoFolderPath[k],issues.json),data);
         issues=[];
         counter--;
-        // if(counter==0)
-        // {
-        //     console.log(issues);
-        //     let data = JSON.stringify(issues);                       // because writeFileSync reads only string so for converting object to string we use JSON
-        //     fs.writeFileSync(path.join(repoFolderPath[k],Issues.json),data);
-        // }
+        if(counter==0)
+        {
+            console.log(repoFolderPath.length);
+            console.log(repoFolderPath);
+            // console.log(issues);
+            // let data = JSON.stringify(issues);                                       // because writeFileSync reads only string so for converting object to string we use JSON
+            // fs.writeFileSync(path.join(repoFolderPath[k],Issues.json),data);
+        }
         k++;
     }
 }
