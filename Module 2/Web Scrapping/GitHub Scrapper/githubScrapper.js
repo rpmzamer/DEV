@@ -28,13 +28,11 @@ function cb(error,response,html){
             
             let CompleteLink="https://github.com"+allAnchorTags[i].href;
             let parentfolderName = textTags[i].textContent.trim();           // We used Trim() because the text had whitespaces
-            // console.log(parentfolderName);
             if(!fs.existsSync(parentfolderName))
             {
                 fs.mkdirSync(parentfolderName);
                 topicpath[i] = path.join(__dirname,parentfolderName);
             }    
-            // console.log(CompleteLink);
             request(CompleteLink,cb2);
             
         }
@@ -61,16 +59,12 @@ function cb2(error,response,html)
             let singleRepoName = s[0].trim()+"/"+s[1].trim();    // We used Trim() because the text had whitespaces         
             let singleRepoNameCrop = s[0].trim();
             let completeRepoIssueLink = "https://github.com/"+singleRepoName+"/issues";
-            // console.log(completeRepoIssueLink);
-            // console.log(topicpath[j]+"\\" + singleRepoNameCrop);
-                                                                                     //path.join(repoFolderPath),singleRepoName)
              let topicRepoPath= topicpath[j]+"\\" + singleRepoNameCrop;                                                                       
              if(!fs.existsSync(topicRepoPath))
              {
                 fs.mkdirSync(topicRepoPath);
                 repoFolderPath.push(topicRepoPath);
              }
-            //  console.log(completeRepoIssueLink);   
              request(completeRepoIssueLink,cb3); 
                  
         }
@@ -86,7 +80,6 @@ function cb3(error,response,html)
     }
     else
     {
-        // let counter = 0 ;
         let i=0;
         const dom = new JSDOM(html);
         const document = dom.window.document;
@@ -96,26 +89,19 @@ function cb3(error,response,html)
         term=allIssuesTags.length;
         for(i=0;i<term;i++)
         {
-            // console.log(allIssuesTags[i].textContent);
+
             let issName = allIssuesTags[i].textContent;
             let isslink = "https://github.com"+allIssuesTags[i].href;
             issuesProcess(issName,isslink);
         }  
-        // let data = JSON.stringify(issues);
-        // fs.writeFileSync(path.join(repoFolderPath[k],issues.json),data);
-        // counter--;
+
         if(i==term)
         {
-            // console.log(repoFolderPath.length);
-            // console.log(repoFolderPath);
-            // console.log(issues);
+           
             let data = JSON.stringify(issues);                                       // because writeFileSync reads only string so for converting object to string we use JSON
             let pathJson = path.join(repoFolderPath[k],"Issues.json"); 
-            // console.log(pathJson);
             fs.writeFileSync(pathJson,data);
-        }
-        // console.log("k: "+k+" len: "+repoFolderPath.length);
-        // counter++;  
+        }  
         k++;
         issues=[];
 
